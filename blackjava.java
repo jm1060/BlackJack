@@ -39,6 +39,14 @@ public class blackjava
                 int opnum2 = addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
                 opponenttotal += opnum2;
                 System.out.println(opponenttotal);
+                if(playertotal==21)
+                {
+                    playerresponse = "stop";
+                }
+                if(opponenttotal == 21)
+                {
+                    opponentresponse = "stop";
+                }
             }
             else{
                 if(!(playerresponse.equals("stop")))
@@ -64,23 +72,39 @@ public class blackjava
                 {
                     opponentresponse = "hit";
                     opponenttotal += addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
+                    opponentresponse = checkopponentscores(opponenttotal, opponentresponse);
                     System.out.println("Opponent total: "+opponenttotal);
                     
                 }
                 else
                 {
-                    List<String>choices = List.of("hit", "stop");
-                    opponentresponse = choices.get(random.nextInt(choices.size()));
-                    if(opponentresponse.equals("hit"))
+                    if(opponentresponse.equals("stop"))
                     {
-                        opponenttotal += addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
-                        System.out.println("Opponent total: "+opponenttotal);
-                        opponentresponse = checkopponentscores(opponenttotal, opponentresponse);
-                    }
-                    else{
+                        
                         opponenttotal += 0;
                         System.out.println("Opponent total: "+opponenttotal);
+                        
                     }
+                    else
+                    {
+                        List<String>choices = List.of("hit", "stop");
+                        opponentresponse = choices.get(random.nextInt(choices.size()));
+                        if(opponentresponse.equals("hit"))
+                        {
+                            opponenttotal += addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
+                            System.out.println("Opponent total: "+opponenttotal);
+                            opponentresponse = checkopponentscores(opponenttotal, opponentresponse);
+                            if(playerresponse.equals("stop") && playertotal < opponenttotal)
+                            {
+                                opponentresponse = "stop";
+                            }
+                        }
+                        else{
+                            opponenttotal += 0;
+                            System.out.println("Opponent total: "+opponenttotal);
+                        }
+                    }
+                    
                 } 
             }
 
@@ -179,7 +203,7 @@ public class blackjava
     private static String checkwin(int playertotal, int opponenttotal)
     {
         String finalstatement = "";
-        if(playertotal == opponenttotal)
+        if(playertotal == opponenttotal ||(playertotal > 21 && opponenttotal > 21))
         {
             finalstatement = "We have a tie. Player: "+ playertotal+ " Opponent: "+opponenttotal;
         }
