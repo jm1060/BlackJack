@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 public class blackjava
 {
@@ -20,18 +21,18 @@ public class blackjava
         else
         {
             List<String> list = List.of("A", "2", "3", "4", "5", "6", "7", "9", "10", "J", "Q", "K");
-            
+            Random random = new Random();
             if(playertotal == 0 && opponenttotal == 0)
             {
-
+                list.get(random.nextInt(list.size()));
             }
         }
 
         return "";
     }
-    private void addplayerscores(int playertotal, String input)
+    private void addplayerscores(int playertotal, String card)
     {
-
+        List<String>royals = List.of("J, Q, K");
     }
 
 }
