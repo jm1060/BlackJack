@@ -39,8 +39,29 @@ public class blackjava
                     {
                         playertotal += addplayerscores(playertotal, list.get(random.nextInt(list.size())));
                     }
+                }
+                else{
+                    playertotal += 0;
+                }
+                if(opponenttotal <= 10)
+                {
+                    opponentresponse = "hit";
+                    opponenttotal = addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
+                }
+                else
+                {
+                    List<String>choices = List.of("hit", "stop");
+                    opponentresponse = choices.get(random.nextInt(choices.size()));
+                    if(opponentresponse.equals("hit"))
+                    {
+                        opponenttotal = addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
+                    }
+                    else{
+                        opponenttotal += 0;
+                    }
                 } 
-            }    
+            }
+
             
         }
 
@@ -104,6 +125,31 @@ public class blackjava
             opponenttotal += Integer.parseInt(card);
         }
         return opponenttotal;
+    }
+    private static String checkplayerscores(int playertotal,String playerresponse)
+    {
+        if(playertotal < 21)
+        {
+            playerresponse = "hit";
+        }
+        else
+        {
+            playerresponse = "stop";
+        }
+        return playerresponse;
+        
+    }
+    private static String checkopponentscores(int opponenttotal, String opponentresponse)
+    {
+        if(opponenttotal < 21)
+        {
+            opponentresponse = "hit";
+        }
+        else
+        {
+            opponentresponse = "stop";
+        }
+        return opponentresponse;
     }
 
 }
