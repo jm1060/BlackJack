@@ -22,10 +22,26 @@ public class blackjava
         {
             List<String> list = List.of("A", "2", "3", "4", "5", "6", "7", "9", "10", "J", "Q", "K");
             Random random = new Random();
+            Scanner scanner = new Scanner(System.in);
             if(playertotal == 0 && opponenttotal == 0)
             {
-                playertotal=addplayerscores(playertotal, list.get(random.nextInt(list.size())));
+                playertotal+=addplayerscores(playertotal, list.get(random.nextInt(list.size())));
+                playertotal+=addplayerscores(playertotal, list.get(random.nextInt(list.size())));
+                opponenttotal += addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
+                opponenttotal += addopponentscores(opponenttotal, list.get(random.nextInt(list.size())));
             }
+            else{
+                if(!(playerresponse.equals("stop")))
+                {
+                    System.out.println("Would like to hit or stop");
+                    playerresponse = scanner.nextLine();
+                    if(playerresponse.equals("hit"))
+                    {
+                        playertotal += addplayerscores(playertotal, list.get(random.nextInt(list.size())));
+                    }
+                } 
+            }    
+            
         }
 
         return "";
@@ -61,6 +77,33 @@ public class blackjava
             playertotal += Integer.parseInt(card);
         }
         return playertotal;
+    }
+    private static int addopponentscores(int opponenttotal, String card)
+    {
+        
+        List<String>royals = List.of("J, Q, K");
+        if(royals.contains(card))
+        {
+            opponenttotal += 10;
+        }
+        else if(card.equals("A"))
+        {
+            
+            if(opponenttotal <= 10)
+            {
+                int acenumber = 11;
+                opponenttotal += acenumber; 
+            }
+            else{
+                int acenumber = 1;
+                opponenttotal += acenumber;
+            }
+            
+        }
+        else{
+            opponenttotal += Integer.parseInt(card);
+        }
+        return opponenttotal;
     }
 
 }
